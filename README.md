@@ -1,4 +1,4 @@
-# tsMuxeR 2.6.15 (COMMAND-LINE ONLY)
+# Roman's tsMuxeR (COMMAND-LINE APPLICATION ONLY)
 
 tsMuxeR was created by Roman Vasilenko (a.k.a. physic @ the Doom9 forum).
 The author gave its source-code to justdan96 [github-dot-com/justdan96].
