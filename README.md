@@ -10,4 +10,5 @@ I rewrote the muxer's makefile so that the users of MSYS2 don't have to "install
 **KNOWN ISSUES:**
 
 The 32-bit executable cannot create functional Blu-Ray .ISOs.
-The previous GUI (v2.6.12) works normally with the 64-bit muxer, as long as the muxer is not compressed with UPX. Stripping it with "--strip-unneeded" is okay.
+The previous GUI (v2.6.12) works normally with the 64-bit muxer, as long as the muxer is not compressed with UPX. Stripping the .EXE with "--strip-unneeded" is okay.
+
