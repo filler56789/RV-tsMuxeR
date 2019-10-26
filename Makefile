@@ -16,7 +16,7 @@ ifdef OS
 
       INCPATH  = -I./libmediation -I./freetype2-10-0/include
       LDFLAGS  = -lpthread -lwinmm -lgdi32 -lgdiplus -static
-      CFLAGS   = -c -fpic -fexceptions -fpermissive
+      CFLAGS   = -c -fpic -fexceptions
       LFLAGS   = 
 
    SOURCES= ./muxer/aac.cpp ./muxer/aacStreamReader.cpp ./muxer/AbstractDemuxer.cpp ./muxer/abstractMuxer.cpp ./muxer/ac3Codec.cpp ./muxer/ac3StreamReader.cpp \
@@ -34,7 +34,7 @@ else
    TARGET   = ./app/tsMuxeR
      INCPATH  = -I./libmediation -I./freetype2-10-0/include
 	 LDFLAGS  = -lpthread -lrt -static
-	 CFLAGS   = -c -fpic -fexceptions -fpermissive
+	 CFLAGS   = -c -fpic -fexceptions
 	 LFLAGS   =
    
    SOURCES= ./muxer/aac.cpp ./muxer/aacStreamReader.cpp ./muxer/AbstractDemuxer.cpp ./muxer/abstractMuxer.cpp ./muxer/ac3Codec.cpp ./muxer/ac3StreamReader.cpp \
