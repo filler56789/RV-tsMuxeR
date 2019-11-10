@@ -3,12 +3,13 @@
 cd libmediation
 make
 
-cd freetype2-10-0
+cd ../freetype2-10-0
+./configure
 make
 
 cd ../zlib1-2-11
-make
+./autocmake.sh
 
-cd ..
+cd ../
 make
 
