@@ -1,0 +1,10 @@
+ON WINDOWS:
+
+--- Just run the script «./Autobuild-WIN.sh».
+
+ON *NIX systems:
+
+1) Substitute the files in the directory named "linux" for their respective Win32 equivalents in the main directories "libmediation" and "muxer";
+
+2) Run the script «./Autobuild-NIX.sh».
+
