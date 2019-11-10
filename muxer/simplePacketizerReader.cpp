@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "simplePacketizerReader.h"
 
 #include "vod_common.h"
@@ -37,7 +36,7 @@ void SimplePacketizerReader::doMplsCorrection()
 		m_curMplsIndex++;
 		if (m_mplsInfo[m_curMplsIndex].connection_condition == 5) {
 			m_mplsOffset += m_curPts - m_lastMplsTime;
-			//m_curPts = m_lastMplsTime; // Корректируем PTS
+			//m_curPts = m_lastMplsTime; // fix PTS up
 		}
 		m_lastMplsTime += (int64_t) ((m_mplsInfo[m_curMplsIndex].OUT_time - m_mplsInfo[m_curMplsIndex].IN_time)*(1000000000/45000.0));
 	}

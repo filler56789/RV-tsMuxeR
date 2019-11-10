@@ -11,16 +11,15 @@ endif
 #endif
 
 ifdef OS
-   INCPATH  = -I.
+   INCPATH  = -I. -I../mingw-std-threads
    DEFINES  = -DWIN32 -DLIBMEDIATION_API= -DDISABLE_LOG_SUPPORT -DDEBUG_NEW12=new -DNO_SYSTEM_EXCEPT
-   SOURCES= fs/directory.cpp fs/osdep/file_win32.cpp system/osdep/condvar_win32.cpp system/osdep/mutex_win32.cpp \
-system/osdep/terminatablethread_win32.cpp types/types.cpp time/time.cpp
+   SOURCES  = fs/directory.cpp fs/osdep/file_win32.cpp system/terminatablethread.cpp types/types.cpp
    LIBS     = -lpthread -lwinmm
    ifdef MSYSTEM
 ifeq ("$(MSYSTEM)", "MINGW32")
-      LFLAGS   = -m32
+      LFLAGS   =
       LDFLAGS  =
-      CFLAGS   = -c -m32
+      CFLAGS   = -c
 else
       LFLAGS   =
       LDFLAGS  =
@@ -34,8 +33,7 @@ endif
 else
    INCPATH  = -I./
    DEFINES  = -DLINUX -DLIBMEDIATION_API= -DDISABLE_LOG_SUPPORT -DDEBUG_NEW12=new -DNO_SYSTEM_EXCEPT
-   SOURCES= fs/directory.cpp fs/osdep/file_unix.cpp system/osdep/condvar_linux.cpp system/osdep/mutex_linux.cpp \
-system/osdep/terminatablethread_linux.cpp types/types.cpp time/time.cpp
+   SOURCES  = fs/directory.cpp fs/osdep/file_unix.cpp system/terminatablethread.cpp types/types.cpp
    LIBS     = -lpthread
    LFLAGS   =
    LDFLAGS  =

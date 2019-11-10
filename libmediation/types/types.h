@@ -1,30 +1,13 @@
 #ifndef __T_TYPES_H
 #define __T_TYPES_H
 
-#ifdef WIN32
-#include <Winsock2.h>
-#else
-#include <netinet/in.h>
-#endif
-
 #include <string>
 #include <vector>
+#include <cstdint>
 
 //class Serializator;
 
-#if defined _MSC_VER
-//typedef unsigned __int8 uint8_t;
-//typedef unsigned __int16 uint16_t;
-//typedef unsigned __int32 uint32_t;
-//typedef unsigned __int64 uint64_t;
-//typedef __int8 int8_t;
-//typedef __int16 int16_t;
-//typedef __int32 int32_t;
-//typedef __int64 int64_t;
-#else
 #define override
-#endif
-
 
 #ifdef WIN32
 #define strcasecmp stricmp
@@ -51,8 +34,8 @@ int16_t  strToInt16( const char* const );
 uint16_t  strToInt16u( const char* const );
 int8_t  strToInt8( const char* const );
 uint8_t  strToInt8u( const char* const );
-double  strToDouble( const char* const );   // В преобразуемом числе должно быть не более 15 знаков
-double  strWToDouble( const wchar_t* const );   // В преобразуемом числе должно быть не более 15 знаков
+double  strToDouble( const char* const );   // The length of the string should not exceed 15 characters
+double  strWToDouble( const wchar_t* const );   // The length of the string should not exceed 15 characters
 bool  strToBool( const char* const );
 bool  strEndWith(const std::string& str, const std::string& substr);
 bool  strStartWith(const std::string& str, const std::string& substr);
@@ -84,9 +67,9 @@ std::string  int32ToStr( const int32_t&);
 std::string  int32uToStr( const uint32_t&);
 std::string  int32ToHex( const int32_t&);
 std::string  int32uToHex( const uint32_t&);
-//! Преобразование дробного числа в строку.
+//! Conversion of a floating-point number into a string.
 /*!
-	 Если precision = -1, то выводится 4 цифры после запятой.
+	 When precision = -1, the output contains four digits after the comma.
 */
 std::string  doubleToStr( const double& x, int precision = -1 );
 
@@ -98,7 +81,7 @@ void  int8uToStr( const uint8_t&, char* const buf );
 
 std::string  boolToStr( const bool& );
 
-// Работа со строками
+// Work on lines
 std::string  strToUpperCase( const std::string& src);
 std::string  strToLowerCase( const std::string& src);
 

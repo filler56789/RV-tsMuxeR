@@ -5,6 +5,7 @@
 #include "math.h"
 #include "vodCoreException.h"
 #include "tsPacket.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -333,7 +334,11 @@ int H264StreamReader::writeAdditionData(uint8_t* dstBuffer, uint8_t* dstEnd, AVP
 	{
         avPacket.flags |=  AVPacket::IS_SPS_PPS_IN_GOP;
 
-		if (m_firstSPSWarn && m_totalFrameNum > 250) // Зачем проверка на 250: пока мы не встетили 2-го IDR фрейма, считаем что поток идет с открытыми гопами (бывают открытые гопы с одним IDR в начале на весь фильм). Поэтому для I frame в 1-м гопе в нормальном потоке тоже срабатывает проверка, чтобы перед ними был SPS. Страшного ничего нет - просто вставим еще один SPS, но чтобы не выводить месагу на экран поставил проверку на 250. 
+        // Why the check for 250 : unless we see the 2nd IDR frame, we can only see that the stream runs with open GOPs
+        // (open GOPs with one IDR at start for the whole movie do happen). That's why there's also a check that there's a
+        // SPS before for the first I-frame in the first GOP in a normal stream. There's nothing scary about that - we simply
+        // insert one more SPS - but in order to avoid outputting messages into the console, I left the check at 250.
+		if (m_firstSPSWarn && m_totalFrameNum > 250) 
 		{
 			m_firstSPSWarn = false;
             if (spsDiscontinue) {
@@ -499,7 +504,7 @@ void H264StreamReader::updateHDRParam(SPSUnit* sps)
     sps->insertHdrParameters();
 }
 
-// Всяике прочие проверки потока, выполняемые при старте
+// All the remaining checks of the stream, executed at start
 
 void H264StreamReader::checkPyramid(int frameNum, int *fullPicOrder, bool nextFrameFound)
 {
@@ -519,7 +524,7 @@ void H264StreamReader::checkPyramid(int frameNum, int *fullPicOrder, bool nextFr
 
 void H264StreamReader::additionalStreamCheck(uint8_t* buff, uint8_t* end)
 {
-	// Проверяем, не является ли поток прогрессивным, но тем не менее pic_order_cnt_lsb увеличивается на 2
+	// Make sure that the stream doesn't appear to be progressive, since pic_order_cnt_lsb doesn't reach values higher than 2 in these streams.
     bool SEIFound = false;
 	SliceUnit slice;
 	SPSUnit tmpsps;
@@ -1202,7 +1207,7 @@ int H264StreamReader::detectPrimaryPicType(SliceUnit& firstSlice, uint8_t* buff)
     m_nextFrameFound = false;
     m_nextFrameIdr = false;
 	m_pict_type = -1;
-	m_pict_type = max(m_pict_type, sliceTypeToPictType(firstSlice.slice_type));
+	m_pict_type = std::max(m_pict_type, sliceTypeToPictType(firstSlice.slice_type));
 	
     //if (firstSlice.orig_slice_type >= 5) // all other slice at this picture must be same type
 	//	return 0; // OK
@@ -1236,7 +1241,7 @@ int H264StreamReader::detectPrimaryPicType(SliceUnit& firstSlice, uint8_t* buff)
                     m_nextFrameIdr = slice.isIDR();
 					return 0; // next frame found
                 }
-				m_pict_type = max(m_pict_type, sliceTypeToPictType(slice.slice_type));
+				m_pict_type = std::max(m_pict_type, sliceTypeToPictType(slice.slice_type));
 				break;
             /*
             case nuDelimiter:

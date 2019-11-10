@@ -1,10 +1,12 @@
 #include "iso_writer.h"
 #include <assert.h>
-#include "time/time.h"
-#include <time.h>
 #include "vod_common.h"
 #include <string.h>
 #include <stdlib.h>
+
+#ifdef WIN32
+#   include <time.h>
+#endif
 
 extern const char* APP_VERSION;
 
@@ -557,7 +559,6 @@ int64_t ISOFile::size() const
 
 IsoWriter::IsoWriter()
 {
-    srand(mtime::clockGetTime());
     m_volumeId = random32();
     m_appId = std::string("*tsMuxeR ") + std::string(APP_VERSION);
     m_impId = std::string("*tsMuxeR ") + int32ToHex(random32());
@@ -603,9 +604,6 @@ void IsoWriter::setVolumeLabel(const std::string& value)
 bool IsoWriter::open(const std::string& fileName, int64_t diskSize, int extraISOBlocks)
 {
     int systemFlags = 0;
-#ifdef WIN32
-    systemFlags += FILE_FLAG_NO_BUFFERING;
-#endif
     if (!m_file.open(fileName.c_str(), File::ofWrite, systemFlags))
         return false;
 

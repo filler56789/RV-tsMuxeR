@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include <fs/directory.h>
 #include "singleFileMuxer.h"
 #include "vodCoreException.h"
@@ -111,7 +110,7 @@ void SingleFileMuxer::intAddStream(const std::string& streamName,
 	
 	/*
 	if (codecName[0] == 'A') {
-		// Используется для более корректного перехода между границами файлов для Blu-ray дисков
+		// Used for "more correct" switching between the boundaries of Blu-Ray disc files
 		((SimplePacketizerReader*) codecReader)->setMPLSInfo(m_mplsParser.m_playItems);
 	}
 	*/

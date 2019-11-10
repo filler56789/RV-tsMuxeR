@@ -14,7 +14,7 @@ ifdef OS
    DEFINES  = -DWIN32 -DLIBMEDIATION_API=  -DDISABLE_LOG_SUPPORT
    TARGET   = ./app/tsMuxeR.exe
 
-      INCPATH  = -I./libmediation -I./freetype2-10-0/include
+      INCPATH  = -I./libmediation -I./mingw-std-threads -I./zinclude
       LDFLAGS  = -lpthread -lwinmm -lgdi32 -lgdiplus -static
       CFLAGS   = -c -fpic -fexceptions
       LFLAGS   = 
@@ -26,13 +26,15 @@ ifdef OS
 ./muxer/lpcmStreamReader.cpp ./muxer/main.cpp ./muxer/matroskaDemuxer.cpp ./muxer/matroskaParser.cpp ./muxer/metaDemuxer.cpp ./muxer/hevcStreamReader.cpp ./muxer/hevc.cpp \
 ./muxer/movDemuxer.cpp ./muxer/mp3Codec.cpp ./muxer/mpeg2StreamReader.cpp ./muxer/mpegAudioStreamReader.cpp ./muxer/mpegStreamReader.cpp ./muxer/mpegVideo.cpp \
 ./muxer/muxerManager.cpp ./muxer/nalUnits.cpp ./muxer/pesPacket.cpp ./muxer/programStreamDemuxer.cpp ./muxer/psgStreamReader.cpp ./muxer/wave.cpp \
-./muxer/simplePacketizerReader.cpp ./muxer/singleFileMuxer.cpp ./muxer/srtStreamReader.cpp ./muxer/stdafx.cpp ./muxer/textSubtitles.cpp ./muxer/textSubtitlesRender.cpp \
+./muxer/simplePacketizerReader.cpp ./muxer/singleFileMuxer.cpp ./muxer/srtStreamReader.cpp  ./muxer/textSubtitles.cpp ./muxer/textSubtitlesRender.cpp \
 ./muxer/osdep/textSubtitlesRenderWin32.cpp  ./muxer/tsDemuxer.cpp ./muxer/tsMuxer.cpp ./muxer/tsPacket.cpp ./muxer/utf8Converter.cpp ./muxer/vc1Parser.cpp ./muxer/combinedH264Demuxer.cpp
+
+   STATIC_LIBS = ./libmediation/libmediationl.a ./zlib1-2-11/zlib/libzlibstatic.a
 
 else
    DEFINES  = -DLINUX -DLIBMEDIATION_API=  -DDISABLE_LOG_SUPPORT
    TARGET   = ./app/tsMuxeR
-     INCPATH  = -I./libmediation -I./freetype2-10-0/include
+     INCPATH  = -I./libmediation -I./freetype2-10-0/include -I./zinclude
 	 LDFLAGS  = -lpthread -lrt -static
 	 CFLAGS   = -c -fpic -fexceptions
 	 LFLAGS   =
@@ -44,11 +46,12 @@ else
 ./muxer/lpcmStreamReader.cpp ./muxer/main.cpp ./muxer/matroskaDemuxer.cpp ./muxer/matroskaParser.cpp ./muxer/metaDemuxer.cpp ./muxer/hevcStreamReader.cpp ./muxer/hevc.cpp \
 ./muxer/movDemuxer.cpp ./muxer/mp3Codec.cpp ./muxer/mpeg2StreamReader.cpp ./muxer/mpegAudioStreamReader.cpp ./muxer/mpegStreamReader.cpp ./muxer/mpegVideo.cpp \
 ./muxer/muxerManager.cpp ./muxer/nalUnits.cpp ./muxer/pesPacket.cpp ./muxer/programStreamDemuxer.cpp ./muxer/psgStreamReader.cpp ./muxer/wave.cpp \
-./muxer/simplePacketizerReader.cpp ./muxer/singleFileMuxer.cpp ./muxer/srtStreamReader.cpp ./muxer/stdafx.cpp ./muxer/textSubtitles.cpp ./muxer/textSubtitlesRender.cpp \
+./muxer/simplePacketizerReader.cpp ./muxer/singleFileMuxer.cpp ./muxer/srtStreamReader.cpp  ./muxer/textSubtitles.cpp ./muxer/textSubtitlesRender.cpp \
 ./muxer/osdep/textSubtitlesRenderFT.cpp  ./muxer/tsDemuxer.cpp ./muxer/tsMuxer.cpp ./muxer/tsPacket.cpp ./muxer/utf8Converter.cpp ./muxer/vc1Parser.cpp ./muxer/combinedH264Demuxer.cpp
-endif
 
-STATIC_LIBS = ./libmediation/libmediationl.a ./freetype2-10-0/objs/.libs/libfreetype.a ./zlib1-2-11/zlib/libzlibstatic.a
+  STATIC_LIBS = ./libmediation/libmediationl.a ./freetype2-10-0/objs/.libs/libfreetype.a ./zlib1-2-11/zlib/libzlibstatic.a
+
+endif
 
 OBJECTS=$(SOURCES:.cpp=.o)
 
@@ -67,7 +70,6 @@ $(TARGET): $(OBJECTS)
 
 clean:
 	rm -f $(OBJECTS)
-	rm -f ./tsMuxeR*
 	rm -f $(TARGET)
 	
 install:

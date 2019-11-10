@@ -1,7 +1,6 @@
-// Lines 2 and 55 of this file by Daniel Kamil Kozar;;
-#include <cstdint>
-#include "stdafx.h"
 #include "bitStream.h"
+
+#include <cstdint>
 
 int BitStream::m_maskInitialized = 0;
 unsigned BitStream::m_masks[INT_BIT + 1];
@@ -52,7 +51,7 @@ void moveBits(uint8_t* buffer, int oldBitOffset, int newBitOffset, int len)
 		len -= c;
 		src++;
 	}
-for (; len >= 8 && (reinterpret_cast<std::uintptr_t>(src) % sizeof(unsigned)) != 0; len -= 8) {
+	for (; len >= 8 && (reinterpret_cast<std::uintptr_t>(src) % sizeof(unsigned)) != 0; len -= 8) {
 		writer.putBits(8, *src);
 		src++;
 	}

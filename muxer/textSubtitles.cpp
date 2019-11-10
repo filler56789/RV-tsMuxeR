@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "textSubtitles.h"
 
 #ifdef WIN32
@@ -98,7 +97,7 @@ void TextToPGSConverter::setVideoInfo(int width, int height, double fps)
 
 double TextToPGSConverter::alignToGrid(double value)
 {
-	int64_t frameCnt = (int64_t) (value * m_videoFps + 0.5); // Сколько кадров прошло к этому моменту времени (окгугляем)
+	int64_t frameCnt = (int64_t) (value * m_videoFps + 0.5); // how many frames have passed until this moment in time (rounded)
 	return frameCnt  / m_videoFps;
 }
 
