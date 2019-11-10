@@ -1,14 +1,14 @@
 #!/bin/sh
 
 cd libmediation
-make clean
+make
 
 cd freetype2-10-0
-make clean
+make
 
 cd ../zlib1-2-11
-make clean
+make
 
 cd ..
-make clean
+make
 
