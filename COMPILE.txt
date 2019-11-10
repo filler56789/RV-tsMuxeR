@@ -2,6 +2,12 @@ ON WINDOWS:
 
 --- Just run the script «./Autobuild-WIN.sh».
 
+NOTICE: tsMuxeR.exe is built without problems with the Win32-threaded GCC,
+I don't know whether the «mingw-std-threads» headers work with the POSIX-threaded GCC
+(i.e., the one which uses winpthreads) or not. 
+
+=============================
+
 ON *NIX systems:
 
 1) Substitute the files in the directory named "linux" for their respective Win32 equivalents in the main directories "libmediation" and "muxer";
